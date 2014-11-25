@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, GRRequestSerializerType) {
 
 @property (nonatomic, strong) AFHTTPRequestOperation * requestOperation;
 
-//HTTP请求的方法
+//HTTP请求的方法..
 @property (nonatomic) GRRequestMethod requestMethod;
 
 //请求的参数
