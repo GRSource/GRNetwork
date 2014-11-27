@@ -21,7 +21,7 @@
         
     } failure:^(GRBaseRequest * request) {
         NSLog(@"failure: %@",request.responseString);
-    }];
+    } withTag:101];
     // Do any additional setup after loading the view, typically from a nib.
 }
 

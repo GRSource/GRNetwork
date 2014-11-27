@@ -46,10 +46,14 @@ typedef NS_ENUM(NSInteger, GRRequestSerializerType) {
 //成功的回调
 @property (nonatomic, copy) void (^successCompletionBlock)(GRBaseRequest *);
 
+@property (nonatomic) NSInteger tag;
+
 //状态码校验
 - (BOOL)statusCodeValidator;
 
 //把block置nil来打破循环引用
 - (void)clearCompletionBlock;
+
+- (void)stop;
 
 @end

@@ -13,8 +13,9 @@
 
 + (GRNetworkAgent *)sharedInstance;
 
-- (void)requestUrl:(NSString *)url param:(NSDictionary *)requestArgument baseUrl:(NSString *)baseUrl withRequestMethod:(GRRequestMethod)requestMethod withCompletionBlockWithSuccess:(void (^)(GRBaseRequest *))success failure:(void (^)(GRBaseRequest *))failure;
+- (void)requestUrl:(NSString *)url param:(NSDictionary *)requestArgument baseUrl:(NSString *)baseUrl withRequestMethod:(GRRequestMethod)requestMethod withCompletionBlockWithSuccess:(void (^)(GRBaseRequest *))success failure:(void (^)(GRBaseRequest *))failure withTag:(NSInteger)tag;
 
 - (void)addRequest:(GRBaseRequest *)request;
-
+- (void)cancelRequest:(NSInteger)tag;
+- (void)cancelAllRequests;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "GRBaseRequest.h"
-
+#import "GRNetworkAgent.h"
 @implementation GRBaseRequest
 
 - (NSString *)responseString
@@ -30,5 +30,8 @@
 {
     self.successCompletionBlock = nil;
     self.failureCompletionBlock = nil;
+}
+- (void)stop {
+    [[GRNetworkAgent sharedInstance] cancelRequest:self.tag];
 }
 @end

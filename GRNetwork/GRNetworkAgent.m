@@ -96,16 +96,35 @@
     NSString * key = [self requestHashKey:operation];
     [_requestsRecord removeObjectForKey:key];
 }
-- (void)requestUrl:(NSString *)url param:(NSDictionary *)requestArgument baseUrl:(NSString *)baseUrl withRequestMethod:(GRRequestMethod)requestMethod withCompletionBlockWithSuccess:(void (^)(GRBaseRequest *))success failure:(void (^)(GRBaseRequest *))failure
+- (void)requestUrl:(NSString *)url param:(NSDictionary *)requestArgument baseUrl:(NSString *)baseUrl withRequestMethod:(GRRequestMethod)requestMethod withCompletionBlockWithSuccess:(void (^)(GRBaseRequest *))success failure:(void (^)(GRBaseRequest *))failure withTag:(NSInteger)tag
 {
     GRBaseRequest * base = [[GRBaseRequest alloc] init];
     base.baseUrl = baseUrl;
     base.requestUrl = url;
+    base.tag = tag;
     base.requestParam = requestArgument;
     base.requestMethod = requestMethod;
     base.successCompletionBlock = success;
     base.failureCompletionBlock = failure;
     base.requestSerializerType = GRRequestSerializerTypeJSON;
     [self addRequest:base];
+}
+- (void)cancelRequest:(NSInteger)tag {
+    NSDictionary *copyRecord = [_requestsRecord copy];
+    for (NSString *key in copyRecord) {
+        GRBaseRequest *request = copyRecord[key];
+        if (request.tag == tag) {
+            [request.requestOperation cancel];
+            [self removeOperation:request.requestOperation];
+            [request clearCompletionBlock];
+        }
+    }
+}
+- (void)cancelAllRequests {
+    NSDictionary *copyRecord = [_requestsRecord copy];
+    for (NSString *key in copyRecord) {
+        GRBaseRequest *request = copyRecord[key];
+        [request stop];
+    }
 }
 @end
